@@ -1,9 +1,9 @@
-const express    = require('express');
-const path       = require('path');
-const Proxy      = require('http-proxy').createProxyServer();
-const config     = require(path.join(__dirname,"../config/global.json"));
-const port       = config.Server.settings.port;
-const app        = express();
+const express = require('express');
+const path = require('path');
+const Proxy = require('http-proxy').createProxyServer();
+const config = require(path.join(__dirname,"../config/global.json"));
+const port = config.Server.settings.port;
+const app = express();
 
 const ProxyServer= 'http://localhost:'+ config.Proxy.settings.port;
 
@@ -54,16 +54,15 @@ app.all("/*", function(req, res) {
 
 app.listen(port, () => console.log(`\x1b[40m`,`\x1b[32m`,
 `
-     _______  __   __  ___   _______  _______ 
-    |       ||  |_|  ||   | |       ||   _   |
-    |    ___||       ||   | |    ___||  |_|  |
-    |   |___ |       ||   | |   | __ |       |
-    |    ___||       ||   | |   ||  ||       |
-    |   |___ | ||_|| ||   | |   |_| ||   _   |
-    |_______||_|   |_||___| |_______||__| |__|
+     _______  __    __  _______  ________ 
+    |       ||  |  |  ||   _   ||        |
+    |    ___||  |__|  ||  |_|  ||__    __|
+    |   |    |        ||       |   |  |    
+    |   |    |   __   ||       |   |  | 
+    |   |___ |  |  |  ||   _   |   |  |
+    |_______||__|  |__||__| |__|   |__|
 
  
-    [+] Maintance      : https://github.com/eminmuhammadi/emiga-stream.git
     [+] Server         : http://localhost:${port}
     [+] Socket         : ws://localhost:${config.Server.settings.port}
     [~] Running Server...
