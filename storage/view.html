@@ -15,8 +15,8 @@
         <div id="log"></div>
 
         <script type="text/javascript">
-    
-            var socket = io('ws://localhost:8001');
+            var HOST = location.origin.replace(/^http/, 'ws').replace(/:\d+/,'');
+            var socket = io(HOST+':8001');
             
             socket.on('stream',function(image){
                 $('#play').attr('src',image);

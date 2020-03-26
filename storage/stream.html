@@ -27,7 +27,9 @@
         
             var video = document.getElementById("video");
         
-            var socket = io('ws://localhost:8001');
+            var HOST = location.origin.replace(/^http/, 'ws').replace(/:\d+/,'');
+            var socket = io(HOST+':8001');
+            // var socket = io('ws://localhost:8001');
         
             function logger(msg){
                 $('#log').text(msg);
@@ -36,6 +38,7 @@
             function loadCamera(stream){
               try {
                   video.srcObject = stream;
+                  video.volume = 0;
               } 
               
               catch (error) {
