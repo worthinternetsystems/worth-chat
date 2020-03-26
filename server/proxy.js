@@ -1,14 +1,14 @@
 const express = require('express');
 const path = require('path');
 const config = require(path.join(__dirname,"../config/global.json"));
-const storage = path.join(__dirname,"../"+config.Proxy.settings.storage_path);
+const storage = path.join(__dirname,"../"+config.Proxy.settings.public_dir);
 const port = process.env.PORT || config.Proxy.settings.port;
 const app = express();
 
 /**
  *   Storage
  */
-app.use(express.static(path.join(__dirname,"../"+config.Proxy.settings.storage_path)));
+app.use(express.static(path.join(__dirname,"../"+config.Proxy.settings.public_dir)));
 
 app.get('/stream', function (req, res) {
     res.sendFile(path.join(storage+'/stream.html'));

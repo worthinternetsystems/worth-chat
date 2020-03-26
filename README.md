@@ -31,7 +31,7 @@ npm run proxy
   "Proxy" : {
     "settings" :{
       "port"         : "8002",
-      "storage_path" : "storage",
+      "public_dir" : "public",
     }
   }
 }
