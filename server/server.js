@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const Proxy = require('http-proxy').createProxyServer();
 const config = require(path.join(__dirname,"../config/global.json"));
-const port = config.Server.settings.port;
+const port = process.env.PORT || config.Server.settings.port;
 const app = express();
 
 const ProxyServer= 'http://localhost:'+ config.Proxy.settings.port;

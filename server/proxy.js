@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const config = require(path.join(__dirname,"../config/global.json"));
 const storage = path.join(__dirname,"../"+config.Proxy.settings.storage_path);
-const port = config.Proxy.settings.port;
+const port = process.env.PORT || config.Proxy.settings.port;
 const app = express();
 
 /**
