@@ -4,9 +4,9 @@
   "description": "Stream Anything",
   "main": "./server/proxy.js",
   "scripts": {
-    "start": "cd server && node proxy.js",
-    "proxy": "cd server && nodemon proxy.js",
-    "server": "cd server && nodemon server.js",
+    "start": "node server/proxy.js",
+    "proxy": "nodemon server/proxy.js",
+    "server": "nodemon server/server.js",
     "dev": "concurrently \"npm run proxy\" \"npm run server\""
   },
   "devDependencies": {
