@@ -1,5 +1,5 @@
-# emiga-stream
-#### Video stream using Express.js , Socket.io
+# worth-chat
+#### Messaging / Video stream using Express.js , Socket.io
 
 ## Installing
 ```bash
@@ -10,14 +10,6 @@ npm install
 ```bash
 npm run dev
 ```
-### Run separately
-```bash
-npm run server
-```
-
-```bash
-npm run proxy
-```
 
 ### Configure
 ```json
@@ -26,12 +18,6 @@ npm run proxy
     "settings" :{
       "port"   : "8000",
       "socket" : "8001"
-    }
-  },
-  "Proxy" : {
-    "settings" :{
-      "port"         : "8002",
-      "public_dir" : "public",
     }
   }
 }
