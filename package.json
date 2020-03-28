@@ -1,13 +1,11 @@
 {
-  "name": "emiga-stream",
+  "name": "worth-chat",
   "version": "0.0.1",
-  "description": "Stream Anything",
-  "main": "./server/proxy.js",
+  "description": "A place to call work, while we are all stuck at home...",
+  "main": "index.js",
   "scripts": {
-    "start": "node server/proxy.js",
-    "proxy": "nodemon server/proxy.js",
-    "server": "nodemon server/server.js",
-    "dev": "concurrently \"npm run proxy\" \"npm run server\""
+    "start": "node servers.js",
+    "dev": "nodemon index.js"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
@@ -15,6 +13,7 @@
   "dependencies": {
     "concurrently": "^4.1.1",
     "express": "^4.17.1",
+    "helmet": "^3.22.0",
     "http-proxy": "^1.17.0",
     "socket.io": "^2.2.0"
   },
@@ -23,13 +22,13 @@
     "url": "git+https://github.com/eminmuhammadi/emiga-stream.git"
   },
   "keywords": [
-    "stream",
-    "emiga-stream"
+    "chat",
+    "video-stream"
   ],
-  "author": "Emin Muhammadi",
+  "author": "David Amey",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/eminmuhammadi/emiga-stream/issues"
+    "url": "https://bitbucket.org/damey-worth/video-chat/issues"
   },
-  "homepage": "https://github.com/eminmuhammadi/emiga-stream#readme"
+  "homepage": "https://bitbucket.org/damey-worth/video-chat/#readme"
 }

@@ -1,17 +1,7 @@
 {
-
-  "Server" : {
+  "server" : {
     "settings" :{
-      "port"   : "8000",
-      "socket" : "8001"
-    }
-  },
-
-  "Proxy" : {
-    "settings" :{
-      "port"         : "8002",
-      "public_dir" : "public"
+      "port"   : "8000"
     }
   }
-  
 }
