@@ -16,8 +16,7 @@ npm run dev
 {
   "Server" : {
     "settings" :{
-      "port"   : "8000",
-      "socket" : "8001"
+      "port"   : "9000"
     }
   }
 }
