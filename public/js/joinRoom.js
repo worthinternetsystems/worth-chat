@@ -1,4 +1,4 @@
-function joinRoom(roomName){
+const joinRoom = (roomName) => {
     // Send this roomName to the server!
     nsSocket.emit('joinRoom', roomName,(newNumberOfMembers)=>{
         // we want to update the room member total now that we have joined!
@@ -18,9 +18,10 @@ function joinRoom(roomName){
         document.querySelector('.curr-room-num-users').innerHTML = `${numMembers} <span class="glyphicon glyphicon-user"></span>`
         document.querySelector('.curr-room-text').innerText = `${roomName}`
     })
+    // TODO: remove - i dont think is neccessary for now
     let searchBox = document.querySelector('#search-box');
-    searchBox.addEventListener('input',(e)=>{
-        console.log(e.target.value)
+    searchBox.addEventListener('input',(e) => {
+        // console.log(e.target.value)
         let messages = Array.from(document.getElementsByClassName('message-text'));
         console.log(messages);
         messages.forEach((msg)=>{

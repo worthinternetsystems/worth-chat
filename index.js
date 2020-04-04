@@ -66,6 +66,20 @@ namespaces.forEach((namespace) => {
             nsSocket.emit('historyCatchUp', nsRoom.history)
             updateUsersInRoom(namespace, roomToJoin);
         })
+
+        nsSocket.on('videoToServer', (vid) => {
+            const userVideo = {
+                username,
+                time: Date.now(),
+                video: vid
+            }
+            const roomTitle = Object.keys(nsSocket.rooms)[1];
+
+            console.log("videoToServer", vid);
+            
+            io.of(namespace.endpoint).to(roomTitle).binary(false).emit('videoToClients', userVideo);
+        })
+
         nsSocket.on('newMessageToServer',(msg)=>{
             const fullMsg = {
                 text: msg.text,

@@ -1,7 +1,7 @@
-const username = prompt("What is your username?")
+const username = prompt("What is your username?");
 
 // TODO: domain / port to come from config / env
-const socket = io('http://localhost:9000',{
+const socket = io('http://localhost:9000', {
     query: {
         username
     }
@@ -10,7 +10,7 @@ let nsSocket = "";
 
 
 // listen for nsList, which is a list of all the namespaces.
-socket.on('nsList',(nsData)=>{
+socket.on('nsList', nsData => {
     console.log("The list of .rooms has arrived!!")
     // console.log(nsData)
     let namespacesDiv = document.querySelector('.namespaces');
@@ -31,58 +31,4 @@ socket.on('nsList',(nsData)=>{
     })
     joinNs('/worth');
 })
-
-// TODO: re-introduce video streaming through socket
-const setupVideo = () => {
-    // WIP video setup
-    var canvas = document.getElementById("preview");
-    var context = canvas.getContext('2d');
-
-    canvas.width = 900;
-    canvas.height = 700;
-
-    context.width = canvas.width;
-    context.height = canvas.height;
-
-    var video = document.getElementById("video");
-
-    // var HOST = location.origin.replace(/^http/, 'ws').replace(/:\d+/,'');
-    // var socket = io(HOST+':8001');
-    // var socket = io('ws://localhost:8001');
-
-    function loadCamera(stream){
-        try {
-            video.srcObject = stream;
-            video.volume = 0;
-        } 
-        
-        catch (error) {
-        video.src = URL.createObjectURL(stream);
-        }
-    }
-
-    function loadFail(){
-    }
-
-    function Draw(video,context){
-        context.drawImage(video,0,0,context.width,context.height);
-        // TODO: stream to current room
-        socket.emit('stream',canvas.toDataURL('image/webp'));
-    }
-
-    // TODO: request when DOM is ready / user has clicked a button
-    navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msgGetUserMedia );
-
-    if(navigator.getUserMedia)
-    {
-        navigator.getUserMedia({
-            video: true, 
-            audio: true
-        },loadCamera,loadFail);
-    }
-
-    setInterval(function(){
-        Draw(video,context);
-    },0.1);
-}
 

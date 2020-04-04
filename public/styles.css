@@ -3,6 +3,11 @@ body{
     color: white;
 }
 
+img {
+    width: 100%;
+    height:auto;
+}
+
 .namespaces{
     background-color: #282c34;
     min-height: 100vh;
@@ -115,7 +120,9 @@ input {
     align-items: stretch;
 }
 
-
+#room-video img {
+    width: 10%;
+}
 
 
 

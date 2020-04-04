@@ -1,4 +1,4 @@
-function joinNs(endpoint){
+const joinNs = (endpoint) => {
     if(nsSocket){
         // check to see if nsSocket is actually a socket
         nsSocket.close();
@@ -37,17 +37,47 @@ function joinNs(endpoint){
         console.log(msg)
         const newMsg = buildHTML(msg);
         document.querySelector('#messages').innerHTML += newMsg
-    })
-    document.querySelector('.message-form').addEventListener('submit',formSubmission)
+    });
+
+    nsSocket.on('videoToClients',(userVideo)=>{
+        console.log("videoToClients", userVideo);
+
+        const { username, time, video } = userVideo;
+
+        // TODO: 
+        // 1. determine if a video tag exists in this room for the incoming video
+        // 2. if not create a video tag
+        // 3. update the stream for the video
+
+        const userVideoEl = document.querySelector(`#room-video img[data-username="${username}"]`);
+        if (!userVideoEl) {
+            const newUserVideoEl = document.createElement("img");
+            newUserVideoEl.setAttribute("data-username", username);
+            newUserVideoEl.setAttribute("src", video);
+            // newUserVideoEl.srcObject = video;
+
+            document.querySelector(`#room-video`).appendChild(newUserVideoEl);
+        }else{
+            userVideoEl.setAttribute("src", video);
+            // userVideoEl.srcObject = video;
+        }
+    });
+
+    document.querySelector('.message-form').addEventListener('submit',formSubmission);
+
+    setupOutboundVideo();
 }
 
-function formSubmission(event){
+const formSubmission = (event) => {
     event.preventDefault();
     const newMessage = document.querySelector('#user-message').value;
-    nsSocket.emit('newMessageToServer',{text: newMessage})
+    nsSocket.emit('newMessageToServer',{text: newMessage});
+    
+    // remove message from the input
+    document.querySelector('input#user-message').value = "";
 }
 
-function buildHTML(msg){
+const buildHTML = (msg) => {
     const convertedDate = new Date(msg.time).toLocaleString();
     const newHTML = `
     <li>
@@ -61,4 +91,57 @@ function buildHTML(msg){
     </li>    
     `
     return newHTML;
+}
+
+// TODO: re-introduce video streaming through socket
+const setupOutboundVideo = () => {
+    // WIP video setup
+    var canvas = document.getElementById("preview");
+    var context = canvas.getContext('2d');
+
+    canvas.width = 900;
+    canvas.height = 700;
+
+    context.width = canvas.width;
+    context.height = canvas.height;
+
+    var video = document.getElementById("video");
+
+    function loadCamera(stream){
+        try {
+            video.srcObject = stream;
+            video.volume = 0;
+        } 
+        
+        catch (error) {
+            video.src = URL.createObjectURL(stream);
+        }
+        
+        nsSocket.emit('videoToServer', stream);
+    }
+
+    function loadFail(){
+    }
+
+    function Draw(video,context){
+        context.drawImage(video,0,0,context.width,context.height);
+        // TODO: stream to current room
+        // socket.emit('stream',canvas.toDataURL('image/webp'));
+        nsSocket.emit('videoToServer', canvas.toDataURL('image/webp'));
+    }
+
+    // TODO: request when DOM is ready / user has clicked a button
+    navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msgGetUserMedia );
+
+    if(navigator.getUserMedia)
+    {
+        navigator.getUserMedia({
+            video: true, 
+            audio: false
+        },loadCamera,loadFail);
+    }
+
+    setInterval(function(){
+        Draw(video,context);
+    },0.1);
 }
