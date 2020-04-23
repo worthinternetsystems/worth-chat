@@ -40,7 +40,7 @@ const joinNs = (endpoint) => {
     });
 
     nsSocket.on('videoToClients',(userVideo)=>{
-        console.log("videoToClients", userVideo);
+        // console.log("videoToClients", userVideo);
 
         const { username, time, video } = userVideo;
 
