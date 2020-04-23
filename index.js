@@ -13,14 +13,11 @@ app.use(helmet());
 app.use(express.static(__dirname + '/public'));
 const expressServer = app.listen(port, () => console.log(`\x1b[40m`,`\x1b[32m`,
 `
-     _______  __    __  _______  ________ 
-    |       ||  |  |  ||   _   ||        |
-    |    ___||  |__|  ||  |_|  ||__    __|
-    |   |    |        ||       |   |  |    
-    |   |    |   __   ||       |   |  | 
-    |   |___ |  |  |  ||   _   |   |  |
-    |_______||__|  |__||__| |__|   |__|
-
+     ______  __    __  _______  ________ 
+    |   ___||  |__|  ||   _   ||__    __|
+    |  |    |   __   ||  |_|  |   |  |
+    |  |___ |  |  |  ||   _   |   |  |    
+    |______||__|  |__||__| |__|   |__|
  
     [+] Server         : http://localhost:${port}
     [~] Running Server...
@@ -40,6 +37,20 @@ io.on('connection',(socket)=>{
     // send the nsData back to the client. We need to use socket, NOT io, because we want it to 
     // go to just this client. 
     socket.emit('nsList',nsData);
+
+    socket.on("call-user", data => {
+        socket.to(data.to).emit("call-made", {
+            offer: data.offer,
+            socket: socket.id
+        });
+    });
+
+    socket.on("make-answer", data => {
+        socket.to(data.to).emit("answer-made", {
+            socket: socket.id,
+            answer: data.answer
+        });
+    });
 })
 
 
@@ -52,7 +63,7 @@ namespaces.forEach((namespace) => {
         // a socket has connected to one of our chatgroup namespaces.
         // send that ns group info back
         nsSocket.emit('nsRoomLoad',namespace.rooms)
-        nsSocket.on('joinRoom',(roomToJoin,numberOfUsersCallback)=>{
+        nsSocket.on('joinRoom',(roomToJoin, numberOfUsersCallback)=>{
             // deal with history... once we have it
             // console.log(nsSocket.rooms);
             const roomToLeave = Object.keys(nsSocket.rooms)[1];
@@ -75,7 +86,7 @@ namespaces.forEach((namespace) => {
             }
             const roomTitle = Object.keys(nsSocket.rooms)[1];
 
-            console.log("videoToServer", vid);
+            // console.log("videoToServer", vid);
             
             io.of(namespace.endpoint).to(roomTitle).binary(false).emit('videoToClients', userVideo);
         })
@@ -109,8 +120,8 @@ namespaces.forEach((namespace) => {
 
 function updateUsersInRoom(namespace, roomToJoin){
     // Send back the number of users in this room to ALL sockets connected to this room
-    io.of(namespace.endpoint).in(roomToJoin).clients((error,clients)=>{
+    io.of(namespace.endpoint).in(roomToJoin).clients((error, clients)=>{
         // console.log(`There are ${clients.length} in this room`);
-        io.of(namespace.endpoint).in(roomToJoin).emit('updateMembers',clients.length)
+        io.of(namespace.endpoint).in(roomToJoin).emit('updateMembers',clients)
     })
 }

@@ -1,6 +1,6 @@
 const joinRoom = (roomName) => {
     // Send this roomName to the server!
-    nsSocket.emit('joinRoom', roomName,(newNumberOfMembers)=>{
+    nsSocket.emit('joinRoom', roomName, (newNumberOfMembers)=>{
         // we want to update the room member total now that we have joined!
         document.querySelector('.curr-room-num-users').innerHTML = `${newNumberOfMembers} <span class="glyphicon glyphicon-user"></span>`
     })
@@ -14,9 +14,16 @@ const joinRoom = (roomName) => {
         })
         messagesUl.scrollTo(0,messagesUl.scrollHeight);
     })
-    nsSocket.on('updateMembers',(numMembers)=>{
-        document.querySelector('.curr-room-num-users').innerHTML = `${numMembers} <span class="glyphicon glyphicon-user"></span>`
+    nsSocket.on('updateMembers',(members)=>{
+        document.querySelector('.curr-room-num-users').innerHTML = `${members.length} <span class="glyphicon glyphicon-user"></span>`
         document.querySelector('.curr-room-text').innerText = `${roomName}`
     })
 
+    // TODO: 
+    // 1. video setup logic to be added here.
+    // 2. clean out previous videos
 };
+
+const error = (err) => {
+    console.warn('Error', err);
+}
