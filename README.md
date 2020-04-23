@@ -1,5 +1,5 @@
 # worth-chat
-#### Messaging / Video stream using Express.js , Socket.io
+#### Messaging / Video stream using Express.js, Socket.io and WebRTC
 
 ## Installing
 ```bash
@@ -22,4 +22,7 @@ npm run dev
 }
 ```
 
-### That's all Folks
+##### Current TODO's
+- Implement webrtc media connections within the rooms
+- Investigate TURN server setup (https://www.npmjs.com/package/node-turn) to remove local limitations
+- Handle users leaving the page, updating the participant count
