@@ -1,0 +1,34 @@
+{
+  "name": "worth-chat-server",
+  "version": "0.0.1",
+  "description": "A place to call work, while we are all stuck at home...",
+  "main": "index.js",
+  "scripts": {
+    "start": "node servers.js",
+    "dev": "nodemon ./server/index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "concurrently": "^4.1.1",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "http-proxy": "^1.17.0",
+    "socket.io": "^2.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eminmuhammadi/emiga-stream.git"
+  },
+  "keywords": [
+    "chat",
+    "video-stream"
+  ],
+  "author": "David Amey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://bitbucket.org/damey-worth/video-chat/issues"
+  },
+  "homepage": "https://bitbucket.org/damey-worth/video-chat/#readme"
+}

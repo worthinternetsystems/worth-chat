@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const config = require(path.join(__dirname,"./config/global.json"));
+const config = require(path.join(__dirname,"../config/global.json"));
 const socketio = require('socket.io');
 // const port = process.env.PORT || config.server.settings.port;
 const port = 9000;
