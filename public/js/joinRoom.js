@@ -33,7 +33,10 @@ const joinRoom = (roomName) => {
             partLi.setAttribute("socket-id", member);
             partLi.innerText = member;
             // console.log("updateMembers", member, partLi)
-            partLi.onclick = () => {callUser(member);}
+            // partLi.onclick = () => {callUser(member);}
+            partLi.addEventListener('click', e => {
+                callUser(member);
+            })
             document.querySelector('.room-header ol.participants').append(partLi);
         }
 

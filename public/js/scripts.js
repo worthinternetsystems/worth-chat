@@ -1,7 +1,8 @@
 let nsSocket = "";
 
 // window.addEventListener('load', function () {
-    const username = prompt("What is your username?");
+    // const username = prompt("What is your username?");
+    const username = "dave";
     // TODO: domain / port to come from config / env
     const socket = io('http://localhost:9000', {
         query: {
