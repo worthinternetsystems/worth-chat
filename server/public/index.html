@@ -1,48 +1,42 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="./styles.css">
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-1 namespaces">
-            <!-- JS will update this dynamically!! -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Worth - Chat</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="logo-container">
+          <img src="https://images.ctfassets.net/bwx98rfv5w3w/3Xzy1AQAXmCm0iK62iAiOm/7bb9e0d9cd0020949d4554f4c66ed785/worth-logo-svg.svg" alt="doge logo" class="logo-img" />
+          <h1 class="logo-text">
+            Worth Chatting
+          </h1>
         </div>
-        <div class="col-sm-2 rooms">
-            <h3>Rooms</h3>
-            <ul class="room-list">
-                <!-- JS will update this dynamically!! -->
-            </ul>
+      </header>
+      <div class="content-container">
+        <div class="active-users-panel" id="active-user-container">
+          <h3 class="panel-title">Active Users:</h3>
         </div>
-        <div class="chat-panel col-sm-9">
-            <div class="room-header row">
-                <div class="col-sm-12"><span class="curr-room-text">Current Room</span> <span class="curr-room-num-users">Users <span class="glyphicon glyphicon-user"></span></span></div>
-                <div class="col-sm-12">
-                    <p>Socket users:</p>
-                    <ol class="participants">
-                    </ol>
-                </div>
-            </div> 
-            <!-- WIP video section -->
-            <div id="room-video">
-                <div id="current-user">
-                    <video src="" id="video" style="width:10%; height: auto;" autoplay="true"></video>
-                    <canvas id="preview" style="display:none;"></canvas>
-                </div>
-            </div>
-            <div class="message-form">
-                <form id="user-input">
-                    <div class="col-sm-12">
-                        <input id="user-message" type="text" placeholder="Enter your message" />
-                    </div>
-                </form>
-            </div>
-            
-            <ul id="messages" class="col-sm-12"></ul>
+        <div class="video-chat-container">
+          <h2 class="talk-info" id="talking-with-info">
+            Select active user on the left menu.
+          </h2>
+          <div class="video-container">
+            <video autoplay class="remote-video" id="remote-video"></video>
+            <video autoplay muted class="local-video" id="local-video"></video>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/scripts.js"></script>
-<script src="/js/signalling.js"></script>
-<script src="/js/joinNs.js"></script>
-<script src="/js/joinRoom.js"></script>
+    <script src="./scripts/index.js"></script>
+  </body>
+</html>
