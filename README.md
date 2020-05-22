@@ -25,5 +25,6 @@ npm run dev
 ##### Current TODO's
 - Implement webrtc media connections within the rooms
 - Investigate TURN server setup (https://www.npmjs.com/package/node-turn) to remove local limitations
+  - Currently using free STUN / TURN servers for external connections, this seems sufficient for prototyping
 - Handle users leaving the page, updating the participant count
 - Capture users in the namespace as well as the rooms
