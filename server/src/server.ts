@@ -45,6 +45,7 @@ export class Server {
     private handleSocketConnection(): void {
         this.io.on("connection", socket => {
             console.log("Socket connected", socket.id);
+            console.log("active sockets", this.activeSockets);
             const existingSocket = this.activeSockets.find(
                 existingSocket => existingSocket === socket.id
             );
@@ -52,11 +53,11 @@ export class Server {
             if (!existingSocket) {
                 this.activeSockets.push(socket.id);
 
-                socket.emit("update-user-list", {
-                    users: this.activeSockets.filter(
-                        existingSocket => existingSocket !== socket.id
-                    )
-                });
+                // socket.emit("update-user-list", {
+                //     users: this.activeSockets.filter(
+                //         existingSocket => existingSocket !== socket.id
+                //     )
+                // });
 
                 socket.broadcast.emit("update-user-list", {
                     users: [socket.id]
@@ -64,6 +65,8 @@ export class Server {
             }
 
             socket.on("call-user", (data: any) => {
+                // console.log("server | socket event | call-user", data.to);
+                console.log(`server | socket event ${socket.id} | call-user ${data.to}`);
                 socket.to(data.to).emit("call-made", {
                     offer: data.offer,
                     socket: socket.id
@@ -71,6 +74,7 @@ export class Server {
             });
 
             socket.on("make-answer", data => {
+                console.log(`server | socket event ${socket.id} | make-answer ${data.to}`);
                 socket.to(data.to).emit("answer-made", {
                     socket: socket.id,
                     answer: data.answer
@@ -84,6 +88,8 @@ export class Server {
             });
 
             socket.on("disconnect", () => {
+                // console.log("server | socket event | disconnect", socket.id);
+                console.log(`server | socket event ${socket.id} | disconnect`);
                 this.activeSockets = this.activeSockets.filter(
                     existingSocket => existingSocket !== socket.id
                 );

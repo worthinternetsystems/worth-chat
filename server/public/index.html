@@ -23,15 +23,12 @@
         </div>
       </header>
       <div class="content-container">
-        <div class="active-users-panel" id="active-user-container">
-          <h3 class="panel-title">Active Users:</h3>
-        </div>
         <div class="video-chat-container">
-          <h2 class="talk-info" id="talking-with-info">
-            Select active user on the left menu.
-          </h2>
           <div class="video-container">
-            <video autoplay class="remote-video" id="remote-video"></video>
+            <!-- TODO: need multiple displays for additional participants -->
+            <div id="remote-streams">
+              <!-- <video autoplay muted class="remote-video" id="remote-video"></video> -->
+            </div>
             <video autoplay muted class="local-video" id="local-video"></video>
           </div>
         </div>
