@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import socketIOClient from "socket.io-client";
+import {SocketIOClient} from "@types/socket.io-client";
 
 import './index.scss';
 
@@ -15,13 +16,29 @@ interface Props {
 interface State {
   username: string;
   namespaces: Namespace[];
+  isAlreadyCalling: boolean;
+  getCalled: boolean;
 }
 
 class App extends Component<Props, State> {
   state = {
     username: "",
-    namespaces: [] as Namespace[]
+    namespaces: [] as Namespace[],
+    isAlreadyCalling: false,
+    getCalled: false
   }
+  
+  private peerConnection: RTCPeerConnection;
+  private socket: SocketIOClient;
+
+  constructor (props: Props) {
+    super(props);
+
+    const { RTCPeerConnection } = window;
+    this.peerConnection = new RTCPeerConnection();
+
+  }
+
 
   componentDidMount() {
     this.getUsername();
@@ -41,7 +58,7 @@ class App extends Component<Props, State> {
   }
   
   setupSocket = () => {
-    const socket = socketIOClient(endpoint);
+    this.socket = socketIOClient(endpoint);
 
     socket.on("nsList", (nsData: Namespace[]) => {
       this.setState({namespaces: nsData})

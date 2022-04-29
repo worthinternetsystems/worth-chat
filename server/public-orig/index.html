@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="./styles.css">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-1 namespaces">
+            <!-- JS will update this dynamically!! -->
+        </div>
+        <div class="col-sm-2 rooms">
+            <h3>Rooms</h3>
+            <ul class="room-list">
+                <!-- JS will update this dynamically!! -->
+            </ul>
+        </div>
+        <div class="chat-panel col-sm-9">
+            <div class="room-header row">
+                <div class="col-sm-12"><span class="curr-room-text">Current Room</span> <span class="curr-room-num-users">Users <span class="glyphicon glyphicon-user"></span></span></div>
+                <div class="col-sm-12">
+                    <p>Socket users:</p>
+                    <ol class="participants">
+                    </ol>
+                </div>
+            </div> 
+            <!-- WIP video section -->
+            <div id="room-video">
+                <div id="current-user">
+                    <video src="" id="video" style="width:10%; height: auto;" autoplay="true"></video>
+                    <canvas id="preview" style="display:none;"></canvas>
+                </div>
+            </div>
+            <div class="message-form">
+                <form id="user-input">
+                    <div class="col-sm-12">
+                        <input id="user-message" type="text" placeholder="Enter your message" />
+                    </div>
+                </form>
+            </div>
+            
+            <ul id="messages" class="col-sm-12"></ul>
+        </div>
+    </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/scripts.js"></script>
+<script src="/js/signalling.js"></script>
+<script src="/js/joinNs.js"></script>
+<script src="/js/joinRoom.js"></script>
